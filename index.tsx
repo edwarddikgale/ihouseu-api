@@ -9,12 +9,13 @@ const app = express();
 dotenv.config();
 
 //routes
-app.get('/hello', (reg, res) => {
-    res.send('Task manager app');
+app.get('/', (reg, res) => {
+    res.send('iHouseU api');
 });
 
 app.use(express.json());
 
+mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URI as string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
