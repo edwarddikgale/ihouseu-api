@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+import {IPost} from './IPost';
 
 const Schema  = mongoose.Schema;
-const PostSchema = new Schema({
+const PostSchema = new Schema<IPost>({
     title:{
         type: String,
         trim: true,

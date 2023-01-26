@@ -13,9 +13,7 @@ const getAllPosts = asyncWrapper(
 
 const getPost = asyncWrapper(async(req:any, res: any, next: any) => {
         const {id: postId} = req.params;
-        console.log(`get post by id: ${postId} called`);
         const post = await Posts.findOne({_id: postId});
-        console.log(`post returned from db as : ${JSON.stringify(post)}`);
         if(!post){
             return next(createCustomeApiError(`A post with this id: ${postId}  has not been found`, 404));
             //return res.status(404).json({message: `A post with this id: ${postId}  has not been found`});
