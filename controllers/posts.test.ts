@@ -20,9 +20,7 @@ describe("Posts Controller Unit Tests", function (){
     let res:any;
     let callBackSpy:any;
 
-    this.afterEach(()=>{
-
-        sandbox.restore();
+    this.beforeEach(() => {
         callBackSpy = sandbox.spy();
         Posts = { findOne: sinon.stub()};
         req = {params:{id: "12345"}};
@@ -30,8 +28,12 @@ describe("Posts Controller Unit Tests", function (){
             json: sandbox.spy(),
             status: sandbox.stub().returns({json: sandbox.spy()})
         }
+    });
+    this.afterEach(()=>{
 
-    })
+        sandbox.restore();
+
+    });
     describe("Get User functionality", function(){
         it("Should throw an error if a post with this ID is not found", async function(){
            
