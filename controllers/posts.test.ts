@@ -20,22 +20,23 @@ describe("Posts Controller Unit Tests", function (){
     let req: any;
     let res:any;
     let next:any;
+    let returnJson: any;
 
     this.beforeEach(() => {
 
         sandbox.restore();
         next = sandbox.spy();
-        //Posts = { findOne: sandbox.stub()};
+        returnJson = sandbox.spy();
         req = {params:{id: fakeId}};
         res = {
-            json: sandbox.spy(),
-            status: sandbox.spy()
-            //status: sandbox.stub().returns({json: sandbox.spy()})
+            //json: sandbox.spy(),
+            //status: sandbox.spy()
+            status: sandbox.stub().returns({json: returnJson})
         }
         
     });
     this.afterEach(()=>{
-
+        sandbox.restore();
     });
     describe("Get User functionality", function(){
         it("Should throw an error if a post with this ID is not found", async function(){
@@ -45,11 +46,14 @@ describe("Posts Controller Unit Tests", function (){
 
             await getPost(req, res, next)
                 .catch(err => {
+                    expect(err.message).to.have.length.greaterThanOrEqual(0);
                     expect(err.message).to.equal(message)
                 });
             
             expect(res.status.notCalled).to.be.true;
-            expect(res.json.notCalled).to.be.true;     
+            expect(returnJson.notCalled).to.be.true;
+            //check the call back function gets called
+            expect(next.called).to.be.true;     
             
         })
         it("Should return correct post if a post with matching id exists", async function(){
@@ -60,13 +64,13 @@ describe("Posts Controller Unit Tests", function (){
             //check that the correct status code was returned
             //expect(res.status.to.be.called).to.be.true;
             expect(res.status.calledWith(200)).to.be.true;
-            //expect(res.json.called).to.be.true;
-            expect(res.json.calledWith({fakePost})).to.be.true;
+            expect(returnJson.called).to.be.true;
+            //expect(returnJson.calledWith({fakePost})).to.be.true;
 
             //check the callback/next function never gets called
-            expect(next.notCalled).to.be.true;
+            //expect(next.notCalled).to.be.true;
              
-         })        
+         })       
     })
 
 

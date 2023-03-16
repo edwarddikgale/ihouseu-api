@@ -4,7 +4,7 @@ import {createCustomeApiError} from '../errors/custom-error';
 
 const getAllPosts = asyncWrapper(
     async (req: any, res:any) =>{
-
+    
         const posts = await Posts.find();
         if(!posts) throw Error('No Posts found!');
         res.status(200).json({posts});
