@@ -1,26 +1,22 @@
 import mongoose from 'mongoose';
-import {IIndicator} from './IIndicator';
+import {IPost} from '../IPost';
 
 const Schema  = mongoose.Schema;
-const IndicatorSchema = new Schema<IIndicator>({
+const PostSchema = new Schema<IPost>({
     title:{
         type: String,
         trim: true,
         required: true
     },
-    description:{
+    body:{
         type: String,
         trim: true,
         required: true 
     },
-    createdOn:{
+    date:{
         type: Date,
         default: Date.now
-    },
-    lastUpdatedOn:{
-        type: Date,
-        default: Date.now
-    }    
+    }
 });
 
-export default mongoose.model('Indicators', IndicatorSchema);
+export default mongoose.model('Posts', PostSchema);

@@ -5,14 +5,13 @@ import config  from './config';
 import {connect} from './db/dbConnector';
 import notFound from './middleware/not-found';
 import errorHandlerMiddleware from './middleware/error-handler';
+import cors from 'cors';
 
 import * as dotenv from 'dotenv';
-
-import postsRoutes from './routes/api/posts';
-import stgsRoutes from './routes/api/stgs';
-import indicatorsRoutes from './routes/api/indicators';
+import RouteAggregator from './routeAggregator';
 
 const app = express();
+const routeAggregator = new RouteAggregator(app);
 
 dotenv.config();
 
@@ -22,15 +21,14 @@ app.get('/', (reg, res) => {
 });
 
 //middleware
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(errorHandlerMiddleware);
 
-//routing
-app.use('/api/posts', postsRoutes);
-app.use('/api/stgs', stgsRoutes);
-app.use('/api/indicators', indicatorsRoutes);
+//initialise the routes
+routeAggregator.init();
 
 //app.use(express.static('/public'));
 app.use(notFound);

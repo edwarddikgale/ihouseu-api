@@ -1,4 +1,4 @@
-import Posts from '../models/Posts';
+import Posts from '../models/Schema/Posts';
 import {asyncWrapper} from '../middleware/async';
 import {createCustomeApiError} from '../errors/custom-error';
 

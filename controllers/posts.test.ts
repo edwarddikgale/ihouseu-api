@@ -1,4 +1,4 @@
-import Posts from '../models/Posts';
+import Posts from '../models/Schema/Posts';
 import {IPost} from '../models/IPost';
 import {getPost} from './posts';
 import chai from 'chai';
