@@ -1,5 +1,6 @@
 docker build -t ihouseu .
-docker tag susact-dev registry.heroku.com/ihouseu/web
-docker push registry.heroku.com/ihouseu/web
+docker tag ihouseu registry.heroku.com/ihouseu/web:latest
+docker push registry.heroku.com/ihouseu/web:latest
+heroku login
 heroku container:login
 heroku container:release web --app ihouseu

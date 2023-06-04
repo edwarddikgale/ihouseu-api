@@ -3,7 +3,7 @@ import {getAllIhouseuUsers, getIhouseuUser, createIhouseuUser, deleteIhouseuUser
 
 const router  = express.Router();
 
-//router.route('/count').get(countIhouseuUsers);
+router.route('/count').get(countIhouseuUsers);
 router.route('/').get(getAllIhouseuUsers).post(createIhouseuUser);
 router.route('/:id').get(getIhouseuUser).patch(updateIhouseuUser).delete(deleteIhouseuUser);
 

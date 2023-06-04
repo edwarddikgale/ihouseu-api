@@ -17,7 +17,7 @@ dotenv.config();
 
 //routes
 app.get('/', (reg, res) => {
-    res.send('iHouseU api');
+    res.send('iHouseU api v1.2, added new routes for ihouseuusers, + socialaccounts');
 });
 
 //middleware

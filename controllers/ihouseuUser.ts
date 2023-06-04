@@ -7,16 +7,18 @@ const recordName = 'IhouseuUser';
 const getAllIhouseuUsers = asyncWrapper(
     async (req: any, res:any) =>{
 
-        const allCount = await IhouseuUsers.countDocuments();
-        const allNotRegistered = await IhouseuUsers.countDocuments({registered: false})
-       
-        res.status(200).json({all: allCount, notRegistered: allNotRegistered});
+        const records = await IhouseuUsers.find();
+        if(!records) throw Error(`No ${recordName}s found!`);
+        res.status(200).json({records});
     }
 );
 
 const countIhouseuUsers = asyncWrapper(
     async (req: any, res: any) =>{
-
+        const allCount = await IhouseuUsers.countDocuments();
+        const allNotRegistered = await IhouseuUsers.countDocuments({registered: false})
+       
+        res.status(200).json({all: allCount, notRegistered: allNotRegistered});
     }
 )
 
