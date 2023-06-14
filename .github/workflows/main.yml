@@ -17,15 +17,28 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Set environment variables
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          GITHUB_SHA: ${{ github.sha }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: registry.heroku.com/$HEROKU_APP_NAME/web:$GITHUB_SHA
+          tags: registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web:${{ github.sha }}
 
       - name: Log in to Heroku
         run: echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
 
       - name: Deploy to Heroku
-        run: docker push registry.heroku.com/$HEROKU_APP_NAME/web && heroku container:release web -a $HEROKU_APP_NAME
+        run: |
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+          heroku container:release web -a $HEROKU_APP_NAME
+
+      - name: Configure MongoDB connection
+        run: |
+          echo "MONGO_URI=${MONGO_URI}" >> .env
+          cat .env
