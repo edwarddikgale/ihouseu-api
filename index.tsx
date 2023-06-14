@@ -17,7 +17,7 @@ dotenv.config();
 
 //routes
 app.get('/', (reg, res) => {
-    res.send('iHouseU api v1.3, added now deploying via github actions');
+    res.send('iHouseU api v1.4, deploy via github actions and ihouseu-pipeline');
 });
 
 //middleware
