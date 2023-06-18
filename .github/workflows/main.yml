@@ -22,19 +22,7 @@ jobs:
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
           cat .env
 
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          env: |
-            HEROKU_APP_NAME=${{ secrets.HEROKU_APP_NAME }}
-            GITHUB_SHA=${{ github.sha }}
-            MONGO_URI=${{ secrets.MONGO_URI }}
-
-
-      - name: Deploy to Heroku
+      - name: IHouseu-api CD to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
@@ -42,3 +30,9 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           heroku_stack: container
           heroku_manifest: ./heroku.yml
+          env: |
+            HEROKU_APP_NAME=${{ secrets.HEROKU_APP_NAME }}
+            GITHUB_SHA=${{ github.sha }}
+            MONGO_URI=${{ secrets.MONGO_URI }}
+          args: |
+            --force
