@@ -30,9 +30,9 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           heroku_stack: container
           heroku_manifest: ./heroku.yml
-          env: |
+          env_file: ".env"
+          env: 
             HEROKU_APP_NAME=${{ secrets.HEROKU_APP_NAME }}
             GITHUB_SHA=${{ github.sha }}
             MONGO_URI=${{ secrets.MONGO_URI }}
-          args: |
-            --force
+
