@@ -1,5 +1,4 @@
 name: Deploy to Heroku
-
 on:
   push:
     branches:
@@ -13,19 +12,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Set environment variables
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-          GITHUB_SHA: ${{ github.sha }}
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          HEROKU_STACK: container
-
       - name: Configure MongoDB connection
         run: |
-          echo "MONGO_URI=${MONGO_URI}" >> .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
           cat .env
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          env: |
+            HEROKU_APP_NAME=${{ secrets.HEROKU_APP_NAME }}
+            GITHUB_SHA=${{ github.sha }}
+            MONGO_URI=${{ secrets.MONGO_URI }}
