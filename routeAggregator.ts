@@ -23,7 +23,7 @@ class RouteAggregator {
     this.app.use('/api/comments', commentsRoutes);
     this.app.use('/api/eventRsvps', eventRsvpsRoutes);
     this.app.use('/api/ihouseuusers', ihouseuUsers);
-    this.app.use('/api/interactQueues', interactQueues);
+    this.app.use('/api/interactQueue', interactQueues);
     this.app.use('/api/postLogs', postLogs);
     this.app.use('/api/socialAccounts', socialAccounts);
   }
